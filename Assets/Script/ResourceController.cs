@@ -30,6 +30,7 @@ public class ResourceController : MonoBehaviour
     private void Start()
 
     {
+
         ResourceButton.onClick.AddListener(() =>
 
         {
@@ -54,8 +55,6 @@ public class ResourceController : MonoBehaviour
         ResourceButton.onClick.AddListener(UpgradeLevel);
 
     }
-
-
 
     public void SetConfig(ResourceConfig config)
 
@@ -106,6 +105,7 @@ public class ResourceController : MonoBehaviour
         return _config.UnlockCost;
 
     }
+
     public void UpgradeLevel()
 
     {
@@ -134,6 +134,7 @@ public class ResourceController : MonoBehaviour
 
     }
 
+
     public void UnlockResource()
 
     {
@@ -155,6 +156,7 @@ public class ResourceController : MonoBehaviour
         GameManager.Instance.ShowNextResource();
 
         AchievementController.Instance.UnlockAchievement(AchievementType.UnlockResource, _config.Name);
+
     }
 
 

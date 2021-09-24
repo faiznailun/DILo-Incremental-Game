@@ -9,7 +9,6 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 
 {
-
     private static GameManager _instance = null;
 
     public static GameManager Instance
@@ -36,8 +35,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-
-
     // Fungsi [Range (min, max)] ialah menjaga value agar tetap berada di antara min dan max-nya 
 
     [Range(0f, 1f)]
@@ -57,8 +54,9 @@ public class GameManager : MonoBehaviour
     public TapText TapTextPrefab;
 
 
+
     public Transform CoinIcon;
-       
+
     public Text GoldInfo;
 
     public Text AutoCollectInfo;
@@ -76,13 +74,10 @@ public class GameManager : MonoBehaviour
     private double _totalGold;
 
 
-
     private void Start()
 
     {
-
         AddAllResources();
-
     }
 
 
@@ -90,7 +85,6 @@ public class GameManager : MonoBehaviour
     private void Update()
 
     {
-
         // Fungsi untuk selalu mengeksekusi CollectPerSecond setiap detik 
 
         _collectSecond += Time.unscaledDeltaTime;
@@ -107,23 +101,22 @@ public class GameManager : MonoBehaviour
 
         CheckResourceCost();
 
-
         CoinIcon.transform.localScale = Vector3.LerpUnclamped(CoinIcon.transform.localScale, Vector3.one * 2f, 0.15f);
 
         CoinIcon.transform.Rotate(0f, 0f, Time.deltaTime * -100f);
+
+
     }
-
-
 
     private void AddAllResources()
 
     {
 
-        bool showResources = true;
-
         foreach (ResourceConfig config in ResourcesConfigs)
 
         {
+
+            bool showResources = true;
 
             GameObject obj = Instantiate(ResourcePrefab.gameObject, ResourcesParent, false);
 
@@ -197,8 +190,6 @@ public class GameManager : MonoBehaviour
                 isBuyable = TotalGold >= resource.GetUnlockCost();
 
             }
-            bool isBuyable = TotalGold >= resource.GetUpgradeCost();
-
 
 
             resource.ResourceImage.sprite = ResourcesSprites[isBuyable ? 1 : 0];
@@ -220,6 +211,7 @@ public class GameManager : MonoBehaviour
 
             {
                 output += resource.GetOutput();
+            }
 
         }
 
@@ -259,12 +251,11 @@ public class GameManager : MonoBehaviour
         foreach (ResourceController resource in _activeResources)
 
         {
+            if (resource.IsUnlocked)
 
-                if (resource.IsUnlocked)
-
-                {
-                    output += resource.GetOutput();
-                }
+            {
+                output += resource.GetOutput();
+            }
         }
 
 
@@ -312,7 +303,10 @@ public class GameManager : MonoBehaviour
         return tapText;
 
     }
-}
+
+} 
+
+ 
 
 // Fungsi System.Serializable adalah agar object bisa di-serialize dan
 
@@ -333,3 +327,4 @@ public struct ResourceConfig
     public double Output;
 
 }
+
